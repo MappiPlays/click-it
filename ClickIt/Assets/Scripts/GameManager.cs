@@ -20,6 +20,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    [SerializeField] private float clickPower;
+    public float ClickPower
+    {
+        get { return clickPower; }
+        set { clickPower = value; }
+    }
+
     private void Awake()
     {
         Instance = this;

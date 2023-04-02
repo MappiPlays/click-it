@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class ClickButton : MonoBehaviour
 {
-    [SerializeField] private int clickPower;
     public void OnClick()
     {
-        GameManager.Instance.Points += clickPower;
+        GameManager.Instance.Points += GameManager.Instance.ClickPower;
     }
 }
