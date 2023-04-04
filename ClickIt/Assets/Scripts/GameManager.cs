@@ -29,27 +29,39 @@ public class GameManager : MonoBehaviour
         set { clickPower = value; }
     }
 
-    [SerializeField] private float mps;
     public float MPS
     {
-        get { return mps; }
-        set { mps = value; }
+        get { return MPSFromUpgrades + (ClicksPerSecond * ClickPower); }
+    }
+
+    [SerializeField] private float mpsFromUpgrades;
+    public float MPSFromUpgrades
+    {
+        get { return mpsFromUpgrades; }
+        set { mpsFromUpgrades = value; }
+    }
+
+    [SerializeField] private float clicksPerSecond;
+    public float ClicksPerSecond
+    {
+        get { return clicksPerSecond; }
+        set { clicksPerSecond = value; }
     }
 
     private void Awake()
     {
         Instance = this;
-        UpgradeButton.OnUpgradeBougth += HandleUpgradeBougth;
     }
 
     private void Start()
     {
         StartCoroutine(AddPointsPerSecond());
+        MPSUpgradeButton.OnUpgradeBougth += HandleUpgradeBougth;
     }
 
     private void OnDestroy()
     {
-        UpgradeButton.OnUpgradeBougth -= HandleUpgradeBougth;
+        MPSUpgradeButton.OnUpgradeBougth -= HandleUpgradeBougth;
     }
 
     private IEnumerator AddPointsPerSecond()
@@ -62,9 +74,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void HandleUpgradeBougth(UpgradeButton upgradeButton)
+    private void HandleUpgradeBougth(MPSUpgradeButton upgradeButton)
     {
-        MPS += upgradeButton.upgrade.cps;
+        MPSFromUpgrades += upgradeButton.upgrade.metersPerSecond;
     }
 
 }

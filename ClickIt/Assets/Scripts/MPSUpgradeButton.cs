@@ -5,11 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UpgradeButton : MonoBehaviour
+public class MPSUpgradeButton : MonoBehaviour
 {
-    public static event Action<UpgradeButton> OnUpgradeBougth;
+    public static event Action<MPSUpgradeButton> OnUpgradeBougth;
 
-    public CPSUpgrade upgrade;
+    public MPSUpgrade upgrade;
     public int upgradeCount;
     [SerializeField] private int upgradeCost;
 

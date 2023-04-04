@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65ce442beaa7bce4890dde84f56c867a, type: 3}
-  m_Name: Clock
+  m_Name: MPSUpgrade1
   m_EditorClassIdentifier: 
-  upgradeName: Clock
+  upgradeName: Big Toe
   artwork: {fileID: 0}
-  basePrice: 100
-  cps: 1
+  basePrice: 20
+  metersPerSecond: 0.2

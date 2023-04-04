@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Autoclick Upgrade")]
-public class CPSUpgrade : ScriptableObject
+[CreateAssetMenu(fileName = "New MPS Upgrade")]
+public class MPSUpgrade : ScriptableObject
 {
     public string upgradeName;
     public Sprite artwork;
     public int basePrice;
-    public float cps;
+    public float metersPerSecond;
 }
