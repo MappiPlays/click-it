@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,8 +7,10 @@ using TMPro;
 
 public class UpgradeButton : MonoBehaviour
 {
-    [SerializeField] private CPSUpgrade upgrade;
-    [SerializeField] private int upgradeCount;
+    public static event Action<UpgradeButton> OnUpgradeBougth;
+
+    public CPSUpgrade upgrade;
+    public int upgradeCount;
     [SerializeField] private int upgradeCost;
 
     private Button button;
@@ -28,25 +31,20 @@ public class UpgradeButton : MonoBehaviour
         StopAllCoroutines();
     }
 
+    private void OnDestroy()
+    {
+        GameManager.OnPointsChanged -= EnableIfBuyable;
+    }
+
     public void OnClick()
     {
         upgradeCount++;
-        if (upgradeCount == 1)
-            StartCoroutine(WorkCo());
         GameManager.Instance.Points -= upgradeCost;
         upgradeCost = Mathf.RoundToInt(upgradeCost * 1.1f);
         texts[2].SetText(upgradeCost.ToString());
         texts[3].SetText(upgradeCount.ToString());
         EnableIfBuyable(GameManager.Instance.Points);
-    }
-
-    IEnumerator WorkCo()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(1 / (upgrade.cps * upgradeCount));
-            GameManager.Instance.Points++;
-        }
+        OnUpgradeBougth?.Invoke(this);
     }
 
     private void EnableIfBuyable(float points)

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New CPS Upgrade")]
+[CreateAssetMenu(fileName = "New Autoclick Upgrade")]
 public class CPSUpgrade : ScriptableObject
 {
     public string upgradeName;

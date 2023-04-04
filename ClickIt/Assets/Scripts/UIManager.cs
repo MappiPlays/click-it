@@ -20,6 +20,6 @@ public class UIManager : MonoBehaviour
 
     private void UpdatePointsDisplay(float points)
     {
-        textPointsValue.SetText(points.ToString());
+        textPointsValue.SetText(Mathf.FloorToInt(points).ToString());
     }
 }
