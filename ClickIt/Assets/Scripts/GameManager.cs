@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public static event Action<float> OnPointsChanged;
     public static event Action<float> OnPointsChangedByAmount;
+    public static event Action<float> OnMPSChanged;
 
     [SerializeField] private float points;
     public float Points
@@ -38,14 +39,22 @@ public class GameManager : MonoBehaviour
     public float MPSFromUpgrades
     {
         get { return mpsFromUpgrades; }
-        set { mpsFromUpgrades = value; }
+        set 
+        { 
+            mpsFromUpgrades = value;
+            OnMPSChanged?.Invoke(MPS);
+        }
     }
 
     [SerializeField] private float clicksPerSecond;
     public float ClicksPerSecond
     {
         get { return clicksPerSecond; }
-        set { clicksPerSecond = value; }
+        set 
+        { 
+            clicksPerSecond = value;
+            OnMPSChanged?.Invoke(MPS);    
+        }
     }
 
     private void Awake()
@@ -57,11 +66,13 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(AddPointsPerSecond());
         MPSUpgradeButton.OnUpgradeBougth += HandleUpgradeBougth;
+        UpgradeMultiplierButton.OnMultiplierBougth += HandleMultiplierBougth;
     }
 
     private void OnDestroy()
     {
         MPSUpgradeButton.OnUpgradeBougth -= HandleUpgradeBougth;
+        UpgradeMultiplierButton.OnMultiplierBougth += HandleMultiplierBougth;
     }
 
     private IEnumerator AddPointsPerSecond()
@@ -77,6 +88,16 @@ public class GameManager : MonoBehaviour
     private void HandleUpgradeBougth(MPSUpgradeButton upgradeButton)
     {
         MPSFromUpgrades += upgradeButton.upgrade.metersPerSecond;
+    }
+
+    private void HandleMultiplierBougth(MultiplierUpgrade multiplier)
+    {
+        if (multiplier.clickPowerMultiplier != 0)
+            clickPower *= multiplier.clickPowerMultiplier;
+        for(int i = 0; i < multiplier.effectedMPSUpgrades.Length; i++)
+        {
+            multiplier.effectedMPSUpgrades[i].multiplier *= multiplier.mpsUpgradeMultipliers[i];
+        }
     }
 
 }

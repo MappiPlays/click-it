@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeName: Full Feet
   artwork: {fileID: 0}
-  basePrice: 100
+  basePrice: 75
   metersPerSecond: 1
+  multiplier: 1

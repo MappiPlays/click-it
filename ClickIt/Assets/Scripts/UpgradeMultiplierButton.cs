@@ -5,24 +5,23 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class MPSUpgradeButton : MonoBehaviour
+public class UpgradeMultiplierButton : MonoBehaviour
 {
-    public static event Action<MPSUpgradeButton> OnUpgradeBougth;
+    public static event Action<MultiplierUpgrade> OnMultiplierBougth;
 
-    public MPSUpgrade upgrade;
-    public int upgradeCount;
+    public MultiplierUpgrade multiplierUpgrade;
     private int upgradeCost;
 
     private Button button;
     private TextMeshProUGUI[] texts;
+    
     void Start()
     {
         GameManager.OnPointsChanged += EnableIfBuyable;
-        upgradeCount = 0;
-        upgradeCost = upgrade.basePrice;
+        upgradeCost = multiplierUpgrade.price;
         button = GetComponent<Button>();
         texts = GetComponentsInChildren<TextMeshProUGUI>();
-        texts[0].SetText(upgrade.upgradeName);
+        texts[0].SetText(multiplierUpgrade.upgradeName);
         texts[2].SetText(upgradeCost.ToString());
     }
 
@@ -30,21 +29,18 @@ public class MPSUpgradeButton : MonoBehaviour
     {
         GameManager.OnPointsChanged -= EnableIfBuyable;
     }
-
     public void OnClick()
     {
-        upgradeCount++;
         GameManager.Instance.Points -= upgradeCost;
-        upgradeCost = Mathf.RoundToInt(upgradeCost * 1.1f);
+        upgradeCost = Mathf.RoundToInt(upgradeCost * 1.5f);
         texts[2].SetText(upgradeCost.ToString());
-        texts[3].SetText(upgradeCount.ToString());
         EnableIfBuyable(GameManager.Instance.Points);
-        OnUpgradeBougth?.Invoke(this);
+        OnMultiplierBougth?.Invoke(multiplierUpgrade);
     }
 
     private void EnableIfBuyable(float points)
     {
-        if(points >= upgradeCost)
+        if (points >= upgradeCost)
         {
             button.interactable = true;
         }

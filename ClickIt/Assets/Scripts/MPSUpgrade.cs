@@ -9,4 +9,5 @@ public class MPSUpgrade : ScriptableObject
     public Sprite artwork;
     public int basePrice;
     public float metersPerSecond;
+    public float multiplier;
 }
